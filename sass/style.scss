@@ -1,0 +1,110 @@
+@import url("../assets/fonts/stylesheet.css");
+
+$key-border-clr: #535353;
+$white: #ffffff;
+$black: #000000;
+$light-grey: #f7f7f7;
+
+%keys-decor {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $key-border-clr;
+    height: 50px;
+}
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    user-select: none;
+}
+
+.kb {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 900px;
+    padding: 20px;
+    user-select: none;
+    border: 2px solid $black;
+    border-radius: 10px;
+    background-color: $light-grey;
+}
+
+.keys {
+    @extend %keys-decor;
+    width: 50px;
+    user-select: none;
+    border-radius: 5px;
+    background-color: $white;
+}
+
+.Backspace {
+    @extend %keys-decor;
+    width: 120px;
+}
+
+.Tab {
+    @extend %keys-decor;
+    width: 80px;
+}
+
+.Backslash {
+    @extend %keys-decor;
+    width: 90px;
+}
+
+.CapsLock {
+    @extend %keys-decor;
+    width: 90px;
+}
+
+.Enter {
+    @extend %keys-decor;
+    width: 140px;
+}
+
+.ShiftLeft {
+    @extend %keys-decor;
+    width: 130px;
+}
+
+.ShiftRight {
+    @extend %keys-decor;
+    width: 100px;
+}
+
+.ControlLeft,
+.ControlRight,
+.MetaLeft,
+.AltRight,
+.AltLeft {
+    @extend %keys-decor;
+    width: 62px;
+}
+
+.Space {
+    @extend %keys-decor;
+    width: 300px;
+}
+
+.pressed {
+    background-color: $key-border-clr;
+    color: $white;
+}
+
+.form {
+    margin-bottom: 50px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.input {
+    width: 900px;
+}
