@@ -61,7 +61,7 @@ const data = `<div class="Backquote keys">\`</div>
 <div class="ArrowLeft keys">&lArr;</div>
 <div class="ArrowUp keys">&uArr;</div>
 <div class="ArrowDown keys">&dArr;</div>
-<div class="ArrowRight keys">&rArr;</div>`
+<div class="ArrowRight keys">&rArr;</div>`;
 
 const dataLeftShift = `<div class="Backquote keys">~</div>
 <div class="Digit1 keys">!</div>
@@ -126,7 +126,7 @@ const dataLeftShift = `<div class="Backquote keys">~</div>
 <div class="ArrowLeft keys">&lArr;</div>
 <div class="ArrowUp keys">&uArr;</div>
 <div class="ArrowDown keys">&dArr;</div>
-<div class="ArrowRight keys">&rArr;</div>`
+<div class="ArrowRight keys">&rArr;</div>`;
 
 const dataRightShift = `<div class="Backquote keys">~</div>
 <div class="Digit1 keys">!</div>
@@ -191,7 +191,7 @@ const dataRightShift = `<div class="Backquote keys">~</div>
 <div class="ArrowLeft keys">&lArr;</div>
 <div class="ArrowUp keys">&uArr;</div>
 <div class="ArrowDown keys">&dArr;</div>
-<div class="ArrowRight keys">&rArr;</div>`
+<div class="ArrowRight keys">&rArr;</div>`;
 
 const dataCaps = `<div class="Backquote keys">\`</div>
 <div class="Digit1 keys">1</div>
@@ -256,7 +256,7 @@ const dataCaps = `<div class="Backquote keys">\`</div>
 <div class="ArrowLeft keys">&lArr;</div>
 <div class="ArrowUp keys">&uArr;</div>
 <div class="ArrowDown keys">&dArr;</div>
-<div class="ArrowRight keys">&rArr;</div>`
+<div class="ArrowRight keys">&rArr;</div>`;
 
 const dataCapsLeftShift = `<div class="Backquote keys">~</div>
 <div class="Digit1 keys">!</div>
@@ -321,6 +321,8 @@ const dataCapsLeftShift = `<div class="Backquote keys">~</div>
 <div class="ArrowLeft keys">&lArr;</div>
 <div class="ArrowUp keys">&uArr;</div>
 <div class="ArrowDown keys">&dArr;</div>
-<div class="ArrowRight keys">&rArr;</div>`
+<div class="ArrowRight keys">&rArr;</div>`;
 
-export {data, dataRightShift, dataLeftShift, dataCaps, dataCapsLeftShift};
+export {
+  data, dataRightShift, dataLeftShift, dataCaps, dataCapsLeftShift,
+};
