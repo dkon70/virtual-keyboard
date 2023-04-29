@@ -169,7 +169,7 @@ const dataRightShift = `<div class="Backquote keys">~</div>
 <div class="Semicolon keys">:</div>
 <div class="Quote keys">"</div>
 <div class="Enter keys">&ldca;</div>
-<div class="ShiftLeft keys pressed">Shift</div>
+<div class="ShiftLeft keys">Shift</div>
 <div class="KeyZ keys">Z</div>
 <div class="KeyX keys">X</div>
 <div class="KeyC keys">C</div>

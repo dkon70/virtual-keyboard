@@ -147,9 +147,11 @@ function keyDownHandler(event) {
   }
   if (event.code === 'ShiftLeft') {
     generateKeys('leftShift');
+    addClicks();
   }
   if (event.code === 'ShiftRight') {
     generateKeys('rightShift');
+    addClicks();
   }
 }
 
