@@ -1,9 +1,9 @@
 @import url("../assets/fonts/stylesheet.css");
 
 $key-border-clr: #535353;
-$white: #ffffff;
-$black: #000000;
-$light-grey: #f7f7f7;
+$keys-color: #ffffff;
+$border-color: #000000;
+$kb-plate-color: #f7f7f7;
 
 %keys-decor {
     box-sizing: border-box;
@@ -26,9 +26,9 @@ body {
     max-width: 900px;
     padding: 20px;
     user-select: none;
-    border: 2px solid $black;
+    border: 2px solid $border-color;
     border-radius: 10px;
-    background-color: $light-grey;
+    background-color: $kb-plate-color;
 }
 
 .keys {
@@ -36,7 +36,7 @@ body {
     width: 50px;
     user-select: none;
     border-radius: 5px;
-    background-color: $white;
+    background-color: $keys-color;
 }
 
 .Backspace {
@@ -90,7 +90,7 @@ body {
 
 .pressed {
     background-color: $key-border-clr;
-    color: $white;
+    color: $keys-color;
 }
 
 .form {
@@ -103,8 +103,4 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-}
-
-.input {
-    width: 900px;
 }

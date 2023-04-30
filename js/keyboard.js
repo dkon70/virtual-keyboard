@@ -1,5 +1,6 @@
 import {
   data, dataRightShift, dataLeftShift, dataCaps, dataCapsLeftShift,
+  dataRus, dataRusCaps, dataRusLeftShift, dataRusRightShift
 } from './data.js';
 
 const kb = document.createElement('div');
@@ -27,21 +28,35 @@ function createLayout() {
   body.append(wrapper);
 }
 
-function generateKeys(type) {
+function generateKeys(type, lang) {
   if (type === 'rightShift') {
-    kb.innerHTML = dataRightShift;
+    if (lang === 'en') {
+      kb.innerHTML = dataRightShift;
+    } else {
+      kb.innerHTML = dataRusRightShift;
+    }
   }
   if (type === 'leftShift') {
-    kb.innerHTML = dataLeftShift;
+    if (lang === 'en') {
+      kb.innerHTML = dataLeftShift;
+    } else {
+      kb.innerHTML = dataRusLeftShift;
+    }
   }
   if (type === 'normal') {
-    kb.innerHTML = data;
+    if (lang === 'en') {
+      kb.innerHTML = data;
+    } else {
+      kb.innerHTML = dataRus;
+    }
+    
   }
   if (type === 'caps') {
-    kb.innerHTML = dataCaps;
-  }
-  if (type === 'leftShiftCaps') {
-    kb.innerHTML = dataCapsLeftShift;
+    if (lang === 'en') {
+      kb.innerHTML = dataCaps;
+    } else {
+      kb.innerHTML = dataRusCaps;
+    }
   }
 }
 

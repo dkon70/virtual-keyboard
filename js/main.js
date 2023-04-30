@@ -1,11 +1,15 @@
 import { createLayout, generateKeys } from './keyboard.js';
 
+let lang = 'ru';
 createLayout();
-generateKeys('normal');
+generateKeys('normal', lang);
 
 let capsOn = false;
 let rShift = false;
 let lShift = false;
+
+let altPressed = false;
+let shiftPressed = false;
 
 const h = document.querySelector('.h');
 
@@ -13,6 +17,33 @@ document.addEventListener('keydown', (event) => {
   event.preventDefault();
   h.innerText = '';
   h.innerText = (event.code);
+
+  if (event.code === 'AltLeft') {
+    altPressed = true;
+  }
+  if (event.code === 'ShiftLeft') {
+    shiftPressed = true;
+  }
+  if (altPressed && shiftPressed) {
+    if (lang === 'en') {
+      lang = 'ru';
+      generateKeys('normal', lang);
+      addClicks();
+    } else {
+      lang = 'en';
+      generateKeys('normal', lang);
+      addClicks();
+    }
+  }
+});
+
+document.addEventListener('keyup', (event) => {
+  if (event.code === 'AltLeft') {
+    altPressed = false;
+  }
+  if (event.code === 'ShiftLeft') {
+    shiftPressed = false;
+  }
 });
 
 const input = document.querySelector('.input');
@@ -36,7 +67,6 @@ function addClicks() {
         && key.innerHTML !== 'Del') {
         input.value += key.innerText;
       }
-
       if (key && key.classList[0] !== 'CapsLock'
         && key.classList[0] !== 'ShiftRight'
         && key.classList[0] !== 'ShiftLeft') {
@@ -45,39 +75,62 @@ function addClicks() {
         key.classList.toggle('pressed');
         if (key.classList[0] === 'CapsLock') {
           if (!capsOn) {
-            generateKeys('caps');
+            generateKeys('caps', lang);
             addClicks();
             capsOn = true;
           } else {
-            generateKeys('normal');
+            generateKeys('normal', lang);
             addClicks();
             capsOn = false;
           }
         }
         if (key.classList[0] === 'ShiftLeft') {
           if (!lShift) {
-            generateKeys('leftShift');
+            generateKeys('leftShift', lang);
             addClicks();
             lShift = true;
           } else {
-            generateKeys('normal');
+            generateKeys('normal', lang);
             addClicks();
             lShift = false;
+            rShift = false;
           }
         }
         if (key.classList[0] === 'ShiftRight') {
           if (!rShift) {
-            generateKeys('rightShift');
+            generateKeys('rightShift', lang);
             addClicks();
             rShift = true;
           } else {
-            generateKeys('normal');
+            generateKeys('normal', lang);
             addClicks();
             rShift = false;
+            lShift = false;
           }
         }
         console.log(lShift);
         console.log(rShift);
+      }
+      if (key.classList[0] === 'AltLeft') {
+        altPressed = true;
+      }
+      if (key.classList[0] === 'ShiftLeft') {
+        shiftPressed = true;
+      }
+      if (altPressed && shiftPressed) {
+        if (lang === 'en') {
+          lang = 'ru';
+          generateKeys('normal', lang);
+          addClicks();
+          altPressed = false;
+          shiftPressed = false;
+        } else {
+          lang = 'en';
+          generateKeys('normal', lang);
+          addClicks();
+          altPressed = false;
+          shiftPressed = false;
+        }
       }
     });
     key.addEventListener('mouseup', (event) => {
@@ -120,8 +173,9 @@ function keyDownHandler(event) {
         && event.code !== 'ArrowUp'
         && event.code !== 'ArrowRight'
         && event.code !== 'ArrowDown'
-        && event.code !== 'Caps') {
-      input.value += event.key;
+        && event.code !== 'Caps'
+        && event.code !== 'Space') {
+      input.value += key.innerText;
       console.log(input.value);
     } else if (event.code === 'Backspace') {
       input.value = input.value.slice(0, -1);
@@ -131,26 +185,28 @@ function keyDownHandler(event) {
     } else if (event.code === 'Delete') {
       input.value = input.value.replace(input.value[0], '');
       console.log(input.value);
+    } else if (event.code === 'Space') {
+      input.value += ' ';
     }
   } else if (event.code === 'CapsLock') {
     if (capsOn === false) {
-      generateKeys('caps');
+      generateKeys('caps', lang);
       addClicks();
       key.classList.toggle('pressed');
       capsOn = true;
     } else {
-      generateKeys('normal');
+      generateKeys('normal', lang);
       addClicks();
       key.classList.toggle('pressed');
       capsOn = false;
     }
   }
   if (event.code === 'ShiftLeft') {
-    generateKeys('leftShift');
+    generateKeys('leftShift', lang);
     addClicks();
   }
   if (event.code === 'ShiftRight') {
-    generateKeys('rightShift');
+    generateKeys('rightShift', lang);
     addClicks();
   }
 }
@@ -163,11 +219,11 @@ function keyUpHandler(event) {
     key.classList.remove('pressed');
   }
   if (key && event.code === 'ShiftLeft') {
-    generateKeys('normal');
+    generateKeys('normal', lang);
     addClicks();
   }
   if (key && event.code === 'ShiftRight') {
-    generateKeys('normal');
+    generateKeys('normal', lang);
     addClicks();
   }
 }
