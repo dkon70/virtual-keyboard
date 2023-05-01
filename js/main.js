@@ -13,10 +13,42 @@ let shiftPressed = false;
 
 const h = document.querySelector('.h');
 
+const input = document.querySelector('.input');
+input.value = '';
+
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
   h.innerText = '';
   h.innerText = (event.code);
+
+  const { selectionStart, selectionEnd } = input;
+  
+  if (event.key === 'Backspace') {
+    if (selectionStart !== selectionEnd) {
+      input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
+      input.selectionStart = input.selectionEnd = selectionStart;
+    } else if (selectionStart > 0) {
+      input.value = input.value.slice(0, selectionStart - 1) + input.value.slice(selectionStart);
+      input.selectionStart = input.selectionEnd = selectionStart - 1;
+    } else if (selectionStart === 0) {
+      event.preventDefault();
+    }
+  } else if (event.key === 'Delete') {
+    if (selectionStart !== selectionEnd) {
+      input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
+      input.selectionStart = input.selectionEnd = selectionStart;
+    } else {
+      input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionStart + 1);
+      input.selectionStart = input.selectionEnd = selectionStart;
+    }
+  }
+
+  if (event.key === 'Enter') {
+    const { selectionStart, selectionEnd, value } = input;
+    input.value = value.slice(0, selectionStart) + '\n' + value.slice(selectionEnd);
+    input.selectionStart = input.selectionEnd = selectionStart + 1;
+    event.preventDefault();
+  }
 
   if (event.code === 'AltLeft') {
     altPressed = true;
@@ -46,9 +78,6 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
-const input = document.querySelector('.input');
-input.value = '';
-
 function addClicks() {
   const keys = document.querySelectorAll('.keys');
 
@@ -64,7 +93,8 @@ function addClicks() {
         && key.innerHTML !== '⇄'
         && key.innerHTML !== '⤶'
         && key.innerHTML !== '_____'
-        && key.innerHTML !== 'Del') {
+        && key.innerHTML !== 'Del'
+        && key.classList[0] !== 'Backspace') {
         input.value += key.innerText;
       }
       if (key && key.classList[0] !== 'CapsLock'
@@ -132,6 +162,31 @@ function addClicks() {
           shiftPressed = false;
         }
       }
+      const { selectionStart, selectionEnd } = input;
+      if (key.classList[0] === 'Backspace') {
+        if (selectionStart !== selectionEnd) {
+          input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
+          input.selectionStart = input.selectionEnd = selectionStart;
+        } else if (selectionStart > 0) {
+          input.value = input.value.slice(0, selectionStart - 1) + input.value.slice(selectionStart);
+          input.selectionStart = input.selectionEnd = selectionStart - 1;
+        } else if (selectionStart === 0) {
+        }
+      } else if (key.classList[0] === 'Delete') {
+        if (selectionStart !== selectionEnd) {
+          input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
+          input.selectionStart = input.selectionEnd = selectionStart;
+        } else {
+          input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionStart + 1);
+          input.selectionStart = input.selectionEnd = selectionStart;
+        }
+      }
+    
+      if (key.classList[0] === 'Enter') {
+        const { selectionStart, selectionEnd, value } = input;
+        input.value = value.slice(0, selectionStart) + '\n' + value.slice(selectionEnd);
+        input.selectionStart = input.selectionEnd = selectionStart + 1;
+      }
     });
     key.addEventListener('mouseup', (event) => {
       event.preventDefault();
@@ -169,22 +224,22 @@ function keyDownHandler(event) {
         && event.code !== 'Delete'
         && event.code !== 'Enter'
         && event.code !== 'MetaLeft'
-        && event.code !== 'ArrowLeft'
-        && event.code !== 'ArrowUp'
-        && event.code !== 'ArrowRight'
-        && event.code !== 'ArrowDown'
+        // && event.code !== 'ArrowLeft'
+        // && event.code !== 'ArrowUp'
+        // && event.code !== 'ArrowRight'
+        // && event.code !== 'ArrowDown'
         && event.code !== 'Caps'
         && event.code !== 'Space') {
       input.value += key.innerText;
       console.log(input.value);
-    } else if (event.code === 'Backspace') {
-      input.value = input.value.slice(0, -1);
-      console.log(input.value);
+    // } else if (event.code === 'Backspace') {
+    //   input.value = input.value.slice(0, -1);
+    //   console.log(input.value);
     } else if (event.code === 'Tab') {
       input.value += '    ';
-    } else if (event.code === 'Delete') {
-      input.value = input.value.replace(input.value[0], '');
-      console.log(input.value);
+    // } else if (event.code === 'Delete') {
+    //   input.value = input.value.replace(input.value[0], '');
+    //   console.log(input.value);
     } else if (event.code === 'Space') {
       input.value += ' ';
     }
