@@ -1,7 +1,4 @@
-import {
-  data, dataRightShift, dataLeftShift, dataCaps,
-  dataRus, dataRusCaps, dataRusLeftShift, dataRusRightShift
-} from './data.js';
+import { data } from './data.js';
 
 const kb = document.createElement('div');
 function createLayout() {
@@ -23,6 +20,7 @@ function createLayout() {
   wrapper.append(form);
 
   kb.className = 'kb';
+  kb.innerHTML += data;
   wrapper.append(kb);
   const { body } = document;
   body.append(wrapper);
@@ -35,36 +33,20 @@ function createLayout() {
   wrapper.append(h5);
 }
 
-function generateKeys(type, lang) {
-  if (type === 'rightShift') {
-    if (lang === 'en') {
-      kb.innerHTML = dataRightShift;
-    } else {
-      kb.innerHTML = dataRusRightShift;
-    }
-  }
-  if (type === 'leftShift') {
-    if (lang === 'en') {
-      kb.innerHTML = dataLeftShift;
-    } else {
-      kb.innerHTML = dataRusLeftShift;
-    }
-  }
-  if (type === 'normal') {
-    if (lang === 'en') {
-      kb.innerHTML = data;
-    } else {
-      kb.innerHTML = dataRus;
-    }
-    
-  }
-  if (type === 'caps') {
-    if (lang === 'en') {
-      kb.innerHTML = dataCaps;
-    } else {
-      kb.innerHTML = dataRusCaps;
-    }
-  }
+const dflt = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./";
+const shift = '~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?';
+const caps = '`1234567890-=QWERTYUIOP[]\\ASDFGHJKL;\'ZXCVBNM.//';
+const dfltRu = 'ё1234567890-=йцукенгшщзхъфывапролджэячсмитьбю.';
+const shiftRu = 'Ё!"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,';
+const capsRu = 'Ё1234567890-=ЙЦУКЕНГШЩЗХЪ\\ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ.';
+const capsShift = '~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?';
+const capsShiftRu = 'Ё!"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,';
+
+function generateKeys(str) {
+	const fill = document.querySelectorAll('.ch');
+	for (let i = 0; i < str.length; i++) {
+		fill[i].innerText = str[i];
+	}
 }
 
 export { createLayout, generateKeys };

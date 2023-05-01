@@ -1,8 +1,17 @@
 import { createLayout, generateKeys } from './keyboard.js';
 
-let lang = 'ru';
+const dflt = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./";
+const shift = '~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?';
+const caps = '`1234567890-=QWERTYUIOP[]\\ASDFGHJKL;\'ZXCVBNM.//';
+const dfltRu = 'ё1234567890-=йцукенгшщзхъ\\фывапролджэячсмитьбю.';
+const shiftRu = 'Ё!"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,';
+const capsRu = 'Ё1234567890-=ЙЦУКЕНГШЩЗХЪ\\ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ.';
+const capsShift = '~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?';
+const capsShiftRu = 'Ё!"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,';
+
+let lang = 'en';
 createLayout();
-generateKeys('normal', lang);
+generateKeys(dflt);
 
 let capsOn = false;
 let rShift = false;
@@ -18,6 +27,7 @@ input.value = '';
 
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
+  console.log(capsOn)
 
   const { selectionStart, selectionEnd } = input;
   
@@ -59,12 +69,10 @@ document.addEventListener('keydown', (event) => {
     altPressed = false;
     if (lang === 'en') {
       lang = 'ru';
-      generateKeys('normal', lang);
-      addClicks();
+      generateKeys(dfltRu);
     } else {
       lang = 'en';
-      generateKeys('normal', lang);
-      addClicks();
+      generateKeys(dflt);
     }
   }
 });
@@ -82,6 +90,7 @@ function addClicks() {
   const keys = document.querySelectorAll('.keys');
 
   keys.forEach((key) => {
+    const lShiftButton = document.querySelector('.ShiftLeft');
     key.addEventListener('mousedown', () => {
       if (key.innerHTML !== 'Caps'
         && key.innerHTML !== 'Ctrl'
@@ -94,6 +103,15 @@ function addClicks() {
         && key.innerHTML !== 'Del'
         && key.classList[0] !== 'Backspace') {
         input.value += key.innerText;
+        if (lShiftButton.classList[2] === 'pressed') {
+          lShiftButton.classList.remove('pressed');
+          lShift = false;
+          if (lang === 'en') {
+            generateKeys(dflt);
+          } else {
+            generateKeys(dfltRu);
+          }
+        }
       }
       if (key && key.classList[0] !== 'CapsLock'
         && key.classList[0] !== 'ShiftRight'
@@ -102,27 +120,38 @@ function addClicks() {
       } else {
         key.classList.toggle('pressed');
         if (key.classList[0] === 'CapsLock') {
-          let caps = document.querySelector('CapsLock');
-          if (!caps.classList.includes('pressed')) {
-            generateKeys('caps', lang);
-            addClicks();
+          if (!capsOn) {
+            if (lang === 'en') {
+              generateKeys(caps);
+            } else {
+              generateKeys(capsRu);
+            }
             capsOn = true;
           } else {
-            generateKeys('normal', lang);
-            addClicks();
+            if (lang === 'en') {
+              generateKeys(dflt);
+            } else {
+              generateKeys(dfltRu);
+            }
             capsOn = false;
           }
         }
         if (key.classList[0] === 'ShiftLeft') {
-          console.log(key.classList);
           if (!lShift) {
-            generateKeys('leftShift', lang);
-            addClicks();
+            if (lang === 'en') {
+              generateKeys(shift);
+            } else {
+              generateKeys(shiftRu)
+            }
+            
             lShift = true;
             key.classList.add('pressed');
           } else {
-            generateKeys('normal', lang);
-            addClicks();
+            if (lang === 'en') {
+              generateKeys(dflt);
+            } else {
+              generateKeys(dfltRu)
+            }
             lShift = false;
             rShift = false;
             key.classList.remove('pressed');
@@ -130,12 +159,18 @@ function addClicks() {
         }
         if (key.classList[0] === 'ShiftRight') {
           if (!rShift) {
-            generateKeys('rightShift', lang);
-            addClicks();
+            if (lang === 'en') {
+              generateKeys(shift);
+            } else {
+              generateKeys(shiftRu)
+            }
             rShift = true;
           } else {
-            generateKeys('normal', lang);
-            addClicks();
+            if (lang === 'en') {
+              generateKeys(dflt);
+            } else {
+              generateKeys(dfltRu)
+            }
             rShift = false;
             lShift = false;
           }
@@ -152,16 +187,22 @@ function addClicks() {
         altPressed = false;
         if (lang === 'en') {
           lang = 'ru';
-          generateKeys('normal', lang);
-          addClicks();
+          generateKeys(dfltRu);
           altPressed = false;
           shiftPressed = false;
         } else {
           lang = 'en';
-          generateKeys('normal', lang);
-          addClicks();
+          generateKeys(dflt);
           altPressed = false;
           shiftPressed = false;
+        }
+        if (lShiftButton.classList[2] === 'pressed') {
+          lShift = true;
+          if (lang === 'en') {
+            generateKeys(shift);
+          } else {
+            generateKeys(shiftRu);
+          }
         }
       }
       const { selectionStart, selectionEnd } = input;
@@ -236,24 +277,38 @@ function keyDownHandler(event) {
     }
   } else if (event.code === 'CapsLock') {
     if (capsOn === false) {
-      generateKeys('caps', lang);
-      addClicks();
+      if (lang === 'en') {
+        generateKeys(caps);
+      } else {
+        generateKeys(capsRu)
+      }
       key.classList.toggle('pressed');
       capsOn = true;
     } else {
-      generateKeys('normal', lang);
-      addClicks();
+      if (lang === 'en') {
+        generateKeys(dflt);
+      } else {
+        generateKeys(dfltRu)
+      }
       key.classList.toggle('pressed');
       capsOn = false;
     }
   }
-  if (event.code === 'ShiftLeft') {
-    generateKeys('leftShift', lang);
-    addClicks();
-  }
-  if (event.code === 'ShiftRight') {
-    generateKeys('rightShift', lang);
-    addClicks();
+  if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+    if (!capsOn) {
+      if (lang === 'en') {
+        generateKeys(shift);
+      } else {
+        generateKeys(shiftRu);
+      }
+    } else {
+      if (lang === 'en') {
+        generateKeys(capsShift);
+      } else {
+        generateKeys(capsShiftRu);
+      }
+    }
+
   }
 }
 
@@ -265,12 +320,35 @@ function keyUpHandler(event) {
     key.classList.remove('pressed');
   }
   if (key && event.code === 'ShiftLeft') {
-    generateKeys('normal', lang);
-    addClicks();
+    if (!capsOn) {
+      if (lang === 'en') {
+        generateKeys(dflt);
+      } else {
+        generateKeys(dfltRu);
+      }
+    } else {
+      if (lang === 'en') {
+        generateKeys(caps);
+      } else {
+        generateKeys(capsRu);
+      }
+    }
+
   }
   if (key && event.code === 'ShiftRight') {
-    generateKeys('normal', lang);
-    addClicks();
+    if (!capsOn) {
+      if (lang === 'en') {
+        generateKeys(dflt);
+      } else {
+        generateKeys(dfltRu);
+      }
+    } else {
+      if (lang === 'en') {
+        generateKeys(caps);
+      } else {
+        generateKeys(capsRu);
+      }
+    }
   }
 }
 
