@@ -29,6 +29,7 @@ body {
     border: 2px solid $border-color;
     border-radius: 10px;
     background-color: $kb-plate-color;
+    margin-bottom: 15px;
 }
 
 .keys {
@@ -103,4 +104,9 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+}
+
+h5 {
+    margin: 0;
+    color: $key-border-clr;
 }

@@ -18,8 +18,6 @@ input.value = '';
 
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
-  h.innerText = '';
-  h.innerText = (event.code);
 
   const { selectionStart, selectionEnd } = input;
   
@@ -57,6 +55,8 @@ document.addEventListener('keydown', (event) => {
     shiftPressed = true;
   }
   if (altPressed && shiftPressed) {
+    shiftPressed = false;
+    altPressed = false;
     if (lang === 'en') {
       lang = 'ru';
       generateKeys('normal', lang);
@@ -83,8 +83,6 @@ function addClicks() {
 
   keys.forEach((key) => {
     key.addEventListener('mousedown', () => {
-      h.innerText = '';
-      h.innerText = (key.classList[0]);
       if (key.innerHTML !== 'Caps'
         && key.innerHTML !== 'Ctrl'
         && key.innerHTML !== 'Alt'
@@ -104,7 +102,8 @@ function addClicks() {
       } else {
         key.classList.toggle('pressed');
         if (key.classList[0] === 'CapsLock') {
-          if (!capsOn) {
+          let caps = document.querySelector('CapsLock');
+          if (!caps.classList.includes('pressed')) {
             generateKeys('caps', lang);
             addClicks();
             capsOn = true;
@@ -115,15 +114,18 @@ function addClicks() {
           }
         }
         if (key.classList[0] === 'ShiftLeft') {
+          console.log(key.classList);
           if (!lShift) {
             generateKeys('leftShift', lang);
             addClicks();
             lShift = true;
+            key.classList.add('pressed');
           } else {
             generateKeys('normal', lang);
             addClicks();
             lShift = false;
             rShift = false;
+            key.classList.remove('pressed');
           }
         }
         if (key.classList[0] === 'ShiftRight') {
@@ -138,8 +140,6 @@ function addClicks() {
             lShift = false;
           }
         }
-        console.log(lShift);
-        console.log(rShift);
       }
       if (key.classList[0] === 'AltLeft') {
         altPressed = true;
@@ -148,6 +148,8 @@ function addClicks() {
         shiftPressed = true;
       }
       if (altPressed && shiftPressed) {
+        shiftPressed = false;
+        altPressed = false;
         if (lang === 'en') {
           lang = 'ru';
           generateKeys('normal', lang);
@@ -224,22 +226,11 @@ function keyDownHandler(event) {
         && event.code !== 'Delete'
         && event.code !== 'Enter'
         && event.code !== 'MetaLeft'
-        // && event.code !== 'ArrowLeft'
-        // && event.code !== 'ArrowUp'
-        // && event.code !== 'ArrowRight'
-        // && event.code !== 'ArrowDown'
         && event.code !== 'Caps'
         && event.code !== 'Space') {
       input.value += key.innerText;
-      console.log(input.value);
-    // } else if (event.code === 'Backspace') {
-    //   input.value = input.value.slice(0, -1);
-    //   console.log(input.value);
     } else if (event.code === 'Tab') {
       input.value += '    ';
-    // } else if (event.code === 'Delete') {
-    //   input.value = input.value.replace(input.value[0], '');
-    //   console.log(input.value);
     } else if (event.code === 'Space') {
       input.value += ' ';
     }

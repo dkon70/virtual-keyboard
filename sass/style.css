@@ -27,6 +27,7 @@ body {
   border: 2px solid #000000;
   border-radius: 10px;
   background-color: #f7f7f7;
+  margin-bottom: 15px;
 }
 
 .keys {
@@ -91,6 +92,11 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+}
+
+h5 {
+  margin: 0;
+  color: #535353;
 }
 
 /*# sourceMappingURL=style.css.map */

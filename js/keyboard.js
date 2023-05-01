@@ -1,5 +1,5 @@
 import {
-  data, dataRightShift, dataLeftShift, dataCaps, dataCapsLeftShift,
+  data, dataRightShift, dataLeftShift, dataCaps,
   dataRus, dataRusCaps, dataRusLeftShift, dataRusRightShift
 } from './data.js';
 
@@ -10,7 +10,7 @@ function createLayout() {
 
   const h = document.createElement('h1');
   h.className = 'h';
-  h.innerText = 'Key';
+  h.innerText = 'Virtual-keyboard';
   wrapper.append(h);
 
   const form = document.createElement('form');
@@ -26,6 +26,13 @@ function createLayout() {
   wrapper.append(kb);
   const { body } = document;
   body.append(wrapper);
+
+  const os = document.createElement('h5');
+  os.innerText = 'The keyboard was created in OS "Windows"'
+  wrapper.append(os);
+  const h5 = document.createElement('h5');
+  h5.innerText = 'Use Alt+Shift combination to switch layout';
+  wrapper.append(h5);
 }
 
 function generateKeys(type, lang) {
