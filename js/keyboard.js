@@ -4,7 +4,7 @@ const kb = document.createElement('div');
 function createLayout() {
   const link = document.createElement('link');
   link.type = 'image/x-icon';
-  link.rel = 'icon';
+  link.rel = 'shortcut icon';
   link.href = '../assets/ico/favicon.ico';
   document.head.append(link);
 
