@@ -2,11 +2,6 @@ import data from './data.js';
 
 const kb = document.createElement('div');
 function createLayout() {
-  const link = document.createElement('link');
-  link.rel = 'shortcut icon';
-  link.href = '../assets/ico/favicon.ico';
-  document.head.prepend(link);
-
   const wrapper = document.createElement('div');
   wrapper.className = 'wrapper';
 
