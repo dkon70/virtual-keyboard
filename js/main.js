@@ -10,8 +10,29 @@ const capsShift = '~!@#$%^&*()_+qwertyuiop{}|asdfghjkl:"zxcvbnm<>?';
 const capsShiftRu = 'Ё!"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,';
 
 let lang = 'en';
+
+window.addEventListener('load', getLocalStorage);
+window.addEventListener('unload', setLocalStorage);
+
+function getLocalStorage() {
+    if(localStorage.getItem('lang')) {
+        lang = localStorage.getItem('lang');
+    } else {
+      lang = 'en';
+    }
+
+    if (lang === 'en') {
+      generateKeys(dflt);
+    } else if (lang === 'ru') {
+      generateKeys(dfltRu);
+    }
+}
+
+function setLocalStorage() {
+    localStorage.setItem('lang', lang);
+}
+
 createLayout();
-generateKeys(dflt);
 
 let capsOn = false;
 let rShift = false;
@@ -187,11 +208,13 @@ function addClicks() {
         altPressed = false;
         if (lang === 'en') {
           lang = 'ru';
+          getLocalStorage()
           generateKeys(dfltRu);
           altPressed = false;
           shiftPressed = false;
         } else {
           lang = 'en';
+          getLocalStorage()
           generateKeys(dflt);
           altPressed = false;
           shiftPressed = false;
