@@ -22,6 +22,15 @@ function createLayout() {
   input.cols = 67;
   input.rows = 15;
   input.className = 'input';
+
+  window.onload = function() {
+    input.focus();
+      
+    input.onblur = function() {
+      input.focus();
+    }
+  }
+
   form.append(input);
   wrapper.append(form);
 
@@ -35,7 +44,7 @@ function createLayout() {
   os.innerText = 'The keyboard was created in OS "Windows"'
   wrapper.append(os);
   const h5 = document.createElement('h5');
-  h5.innerText = 'Use Alt+Shift combination to switch layout';
+  h5.innerText = 'Use Shift+Alt combination to switch layout';
   wrapper.append(h5);
 }
 

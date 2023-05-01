@@ -97,20 +97,12 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-document.addEventListener('keyup', (event) => {
-  if (event.code === 'AltLeft') {
-    altPressed = false;
-  }
-  if (event.code === 'ShiftLeft') {
-    shiftPressed = false;
-  }
-});
-
 function addClicks() {
   const keys = document.querySelectorAll('.keys');
 
   keys.forEach((key) => {
     const lShiftButton = document.querySelector('.ShiftLeft');
+    const rShiftButton = document.querySelector('.ShiftRight');
     key.addEventListener('mousedown', () => {
       if (key.innerHTML !== 'Caps'
         && key.innerHTML !== 'Ctrl'
@@ -132,6 +124,21 @@ function addClicks() {
             generateKeys(dfltRu);
           }
         }
+        if (rShiftButton.classList[2] === 'pressed') {
+          rShiftButton.classList.remove('pressed');
+          rShift = false;
+          if (lang === 'en') {
+            generateKeys(dflt);
+          } else {
+            generateKeys(dfltRu);
+          }
+        }
+      }
+      if (key.innerHTML === '_____') {
+        input.value += ' ';
+      }
+      if (key.innerHTML === '⇄') {
+        input.value += '    ';
       }
       if (key && key.classList[0] !== 'CapsLock'
         && key.classList[0] !== 'ShiftRight'
@@ -331,6 +338,12 @@ function keyDownHandler(event) {
 document.addEventListener('keydown', keyDownHandler);
 
 function keyUpHandler(event) {
+  if (event.code === 'AltLeft') {
+    altPressed = false;
+  }
+  if (event.code === 'ShiftLeft') {
+    shiftPressed = false;
+  }
   const key = document.querySelector(`.${event.code}`);
   if (key && event.code !== 'CapsLock') {
     key.classList.remove('pressed');
