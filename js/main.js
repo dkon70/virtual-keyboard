@@ -203,20 +203,15 @@ function addClicks() {
         shiftPressed = true;
       }
       if (altPressed && shiftPressed) {
-        shiftPressed = false;
         altPressed = false;
         if (lang === 'en') {
           lang = 'ru';
-          getLocalStorage()
           generateKeys(dfltRu);
           altPressed = false;
-          shiftPressed = false;
         } else {
           lang = 'en';
-          getLocalStorage()
           generateKeys(dflt);
           altPressed = false;
-          shiftPressed = false;
         }
         if (lShiftButton.classList[2] === 'pressed') {
           lShift = true;
@@ -235,7 +230,6 @@ function addClicks() {
         } else if (selectionStart > 0) {
           input.value = input.value.slice(0, selectionStart - 1) + input.value.slice(selectionStart);
           input.selectionStart = input.selectionEnd = selectionStart - 1;
-        } else if (selectionStart === 0) {
         }
       } else if (key.classList[0] === 'Delete') {
         if (selectionStart !== selectionEnd) {
