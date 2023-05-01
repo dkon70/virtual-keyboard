@@ -48,7 +48,6 @@ input.value = '';
 
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
-  console.log(capsOn)
 
   const { selectionStart, selectionEnd } = input;
   
