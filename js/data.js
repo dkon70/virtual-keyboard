@@ -63,4 +63,4 @@ const data = `<div class="Backquote keys ch"></div>
 <div class="ArrowDown keys">&dArr;</div>
 <div class="ArrowRight keys">&rArr;</div>`;
 
-export { data };
+export default { data };

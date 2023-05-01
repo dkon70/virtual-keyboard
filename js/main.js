@@ -11,26 +11,26 @@ const capsShiftRu = 'ё!"№;%:?*()_+йцукенгшщзхъ/фывапролд
 
 let lang = 'en';
 
-window.addEventListener('load', getLocalStorage);
-window.addEventListener('unload', setLocalStorage);
-
 function getLocalStorage() {
-    if(localStorage.getItem('lang')) {
-        lang = localStorage.getItem('lang');
-    } else {
-      lang = 'en';
-    }
+  if (localStorage.getItem('lang')) {
+    lang = localStorage.getItem('lang');
+  } else {
+    lang = 'en';
+  }
 
-    if (lang === 'en') {
-      generateKeys(dflt);
-    } else if (lang === 'ru') {
-      generateKeys(dfltRu);
-    }
+  if (lang === 'en') {
+    generateKeys(dflt);
+  } else if (lang === 'ru') {
+    generateKeys(dfltRu);
+  }
 }
 
 function setLocalStorage() {
-    localStorage.setItem('lang', lang);
+  localStorage.setItem('lang', lang);
 }
+
+window.addEventListener('load', getLocalStorage);
+window.addEventListener('unload', setLocalStorage);
 
 createLayout();
 
@@ -41,40 +41,42 @@ let lShift = false;
 let altPressed = false;
 let shiftPressed = false;
 
-const h = document.querySelector('.h');
-
 const input = document.querySelector('.input');
 input.value = '';
 
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
 
-  const { selectionStart, selectionEnd } = input;
-  
+  const { selectionStart, selectionEnd, value } = input;
+
   if (event.key === 'Backspace') {
     if (selectionStart !== selectionEnd) {
       input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
-      input.selectionStart = input.selectionEnd = selectionStart;
+      input.selectionStart = selectionStart;
+      input.selectionEnd = selectionStart;
     } else if (selectionStart > 0) {
       input.value = input.value.slice(0, selectionStart - 1) + input.value.slice(selectionStart);
-      input.selectionStart = input.selectionEnd = selectionStart - 1;
+      input.selectionStart = selectionStart - 1;
+      input.selectionEnd = selectionStart - 1;
     } else if (selectionStart === 0) {
       event.preventDefault();
     }
   } else if (event.key === 'Delete') {
     if (selectionStart !== selectionEnd) {
       input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
-      input.selectionStart = input.selectionEnd = selectionStart;
+      input.selectionStart = selectionStart;
+      input.selectionEnd = selectionStart;
     } else {
       input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionStart + 1);
-      input.selectionStart = input.selectionEnd = selectionStart;
+      input.selectionStart = selectionStart;
+      input.selectionEnd = selectionStart;
     }
   }
 
   if (event.key === 'Enter') {
-    const { selectionStart, selectionEnd, value } = input;
-    input.value = value.slice(0, selectionStart) + '\n' + value.slice(selectionEnd);
-    input.selectionStart = input.selectionEnd = selectionStart + 1;
+    input.value = `${value.slice(0, selectionStart)}\n${value.slice(selectionEnd)}`;
+    input.selectionStart = selectionStart + 1;
+    input.selectionEnd = selectionStart + 1;
     event.preventDefault();
   }
 
@@ -168,16 +170,16 @@ function addClicks() {
             if (lang === 'en') {
               generateKeys(shift);
             } else {
-              generateKeys(shiftRu)
+              generateKeys(shiftRu);
             }
-            
+
             lShift = true;
             key.classList.add('pressed');
           } else {
             if (lang === 'en') {
               generateKeys(dflt);
             } else {
-              generateKeys(dfltRu)
+              generateKeys(dfltRu);
             }
             lShift = false;
             rShift = false;
@@ -189,14 +191,14 @@ function addClicks() {
             if (lang === 'en') {
               generateKeys(shift);
             } else {
-              generateKeys(shiftRu)
+              generateKeys(shiftRu);
             }
             rShift = true;
           } else {
             if (lang === 'en') {
               generateKeys(dflt);
             } else {
-              generateKeys(dfltRu)
+              generateKeys(dfltRu);
             }
             rShift = false;
             lShift = false;
@@ -233,25 +235,32 @@ function addClicks() {
       if (key.classList[0] === 'Backspace') {
         if (selectionStart !== selectionEnd) {
           input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
-          input.selectionStart = input.selectionEnd = selectionStart;
+          input.selectionStart = selectionStart;
+          input.selectionEnd = selectionStart;
         } else if (selectionStart > 0) {
-          input.value = input.value.slice(0, selectionStart - 1) + input.value.slice(selectionStart);
-          input.selectionStart = input.selectionEnd = selectionStart - 1;
+          input.value = input.value.slice(0, selectionStart - 1)
+              + input.value.slice(selectionStart);
+          input.selectionStart = selectionStart - 1;
+          input.selectionEnd = selectionStart - 1;
         }
       } else if (key.classList[0] === 'Delete') {
         if (selectionStart !== selectionEnd) {
           input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionEnd);
-          input.selectionStart = input.selectionEnd = selectionStart;
+          input.selectionStart = selectionStart;
+          input.selectionEnd = selectionStart;
         } else {
-          input.value = input.value.slice(0, selectionStart) + input.value.slice(selectionStart + 1);
-          input.selectionStart = input.selectionEnd = selectionStart;
+          input.value = input.value.slice(0, selectionStart)
+              + input.value.slice(selectionStart + 1);
+          input.selectionStart = selectionStart;
+          input.selectionEnd = selectionStart;
         }
       }
-    
+
       if (key.classList[0] === 'Enter') {
-        const { selectionStart, selectionEnd, value } = input;
-        input.value = value.slice(0, selectionStart) + '\n' + value.slice(selectionEnd);
-        input.selectionStart = input.selectionEnd = selectionStart + 1;
+        const { value } = input;
+        input.value = `${value.slice(0, selectionStart)}\n${value.slice(selectionEnd)}`;
+        input.selectionStart = selectionStart + 1;
+        input.selectionEnd = selectionStart + 1;
       }
     });
     key.addEventListener('mouseup', (event) => {
@@ -303,7 +312,7 @@ function keyDownHandler(event) {
       if (lang === 'en') {
         generateKeys(caps);
       } else {
-        generateKeys(capsRu)
+        generateKeys(capsRu);
       }
       key.classList.toggle('pressed');
       capsOn = true;
@@ -311,7 +320,7 @@ function keyDownHandler(event) {
       if (lang === 'en') {
         generateKeys(dflt);
       } else {
-        generateKeys(dfltRu)
+        generateKeys(dfltRu);
       }
       key.classList.toggle('pressed');
       capsOn = false;
@@ -324,14 +333,11 @@ function keyDownHandler(event) {
       } else {
         generateKeys(shiftRu);
       }
+    } else if (lang === 'en') {
+      generateKeys(capsShift);
     } else {
-      if (lang === 'en') {
-        generateKeys(capsShift);
-      } else {
-        generateKeys(capsShiftRu);
-      }
+      generateKeys(capsShiftRu);
     }
-
   }
 }
 
@@ -355,14 +361,11 @@ function keyUpHandler(event) {
       } else {
         generateKeys(dfltRu);
       }
+    } else if (lang === 'en') {
+      generateKeys(caps);
     } else {
-      if (lang === 'en') {
-        generateKeys(caps);
-      } else {
-        generateKeys(capsRu);
-      }
+      generateKeys(capsRu);
     }
-
   }
   if (key && event.code === 'ShiftRight') {
     if (!capsOn) {
@@ -371,12 +374,10 @@ function keyUpHandler(event) {
       } else {
         generateKeys(dfltRu);
       }
+    } else if (lang === 'en') {
+      generateKeys(caps);
     } else {
-      if (lang === 'en') {
-        generateKeys(caps);
-      } else {
-        generateKeys(capsRu);
-      }
+      generateKeys(capsRu);
     }
   }
 }
