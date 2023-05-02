@@ -1,0 +1,102 @@
+@import url("../assets/fonts/stylesheet.css");
+.Space, .ControlLeft,
+.ControlRight,
+.MetaLeft,
+.AltRight,
+.AltLeft, .ShiftRight, .ShiftLeft, .Enter, .CapsLock, .Backslash, .Tab, .Backspace, .keys {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #535353;
+  height: 50px;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  user-select: none;
+}
+
+.kb {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: 900px;
+  padding: 20px;
+  user-select: none;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+  margin-bottom: 15px;
+}
+
+.keys {
+  width: 50px;
+  user-select: none;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.Backspace {
+  width: 120px;
+}
+
+.Tab {
+  width: 80px;
+}
+
+.Backslash {
+  width: 90px;
+}
+
+.CapsLock {
+  width: 90px;
+}
+
+.Enter {
+  width: 140px;
+}
+
+.ShiftLeft {
+  width: 130px;
+}
+
+.ShiftRight {
+  width: 100px;
+}
+
+.ControlLeft,
+.ControlRight,
+.MetaLeft,
+.AltRight,
+.AltLeft {
+  width: 62px;
+}
+
+.Space {
+  width: 300px;
+}
+
+.pressed {
+  background-color: #535353;
+  color: #ffffff;
+}
+
+.form {
+  margin-bottom: 50px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+h5 {
+  margin: 0;
+  color: #535353;
+}
+
+/*# sourceMappingURL=style.css.map */
